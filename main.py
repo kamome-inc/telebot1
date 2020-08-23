@@ -4,10 +4,17 @@ bot = telebot.TeleBot(bot_token)
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message.text == "/start":
-        bot.send_message(message.from_user.id, "Представьтесь пожалуйста")
     print(message.from_user.first_name, message.from_user.last_name, message.from_user.id, '  ', message.text)
-    bot.send_message(message.from_user.id, message.text)
+    if message.text == "Привет":
+        ans = "Привет! Купи слона!"
+        bot.send_message(message.from_user.id, ans)
+    elif message.text == "/start":
+        ans = "Представьтесь пожалуйста"
+        bot.send_message(message.from_user.id, ans)
+    else:
+        ans = "Все говорят \'" + message.text + "\', а ты купи слона!"
+        bot.send_message(message.from_user.id, ans)
+    print("bot to:", message.from_user.first_name, message.from_user.last_name, message.from_user.id, '  ', ans)
 
 bot.polling(none_stop=True, interval=0)
 
